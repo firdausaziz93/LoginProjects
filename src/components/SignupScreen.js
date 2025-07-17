@@ -77,7 +77,7 @@ export default function SignupScreen({navigation}) {
       <View style={styles.signup}>
         <Button
           title="Go to Login"
-          onPress={() => navigation.navigate('login')}
+          onPress={() => navigation.navigate('Login')}
           style={styles.signup}
         />
       </View>

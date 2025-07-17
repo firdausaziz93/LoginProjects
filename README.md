@@ -12,6 +12,17 @@ LoginProjects is a React Native application featuring login and sign-up pages. I
 - **Password visibility**: Allows user to visible the password in sign up page
 - **Cross-platform Support**: Runs on Android and iOS devices.
 
+## Screenshot
+
+## Home Screen
+![Description of screenshot](./src/screenshoot/login.png)
+
+## Signup Screen
+![Description of screenshot](./src/screenshoot/signup.png)
+
+## Home Screen
+![Description of screenshot](./src/screenshoot/home.png)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (Recommended: v14 or higher)
