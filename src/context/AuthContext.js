@@ -15,8 +15,7 @@ export function AuthProvider({children}) {
     );
 
     if (matchedUser) {
-      console.log('Login successful!', matchedUser?.name);
-      const userObj = {name: username, email: username};
+      const userObj = {name: matchedUser?.name, email: matchedUser?.email};
       setUser(userObj);
       await AsyncStorage.setItem('user', JSON.stringify(userObj));
       Alert.alert('Login Successful', `Welcome back ${matchedUser.name}!`);
