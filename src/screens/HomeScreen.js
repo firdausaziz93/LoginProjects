@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  Linking,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {useAuth} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -50,6 +59,38 @@ export default function HomeScreen({navigation}) {
           )}
         />
       </View>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footerIcon}
+          onPress={() =>
+            Linking.openURL(
+              'https://www.linkedin.com/in/muhammad-firdaus-65bb48212',
+            )
+          }>
+          <Image
+            source={require('../assets/icons/linkedin.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerIcon}
+          onPress={() =>
+            Linking.openURL('https://firdausaziz93.github.io/React-Deploy')
+          }>
+          <Image
+            source={require('../assets/icons/resume.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </View>
+      <Text
+        style={styles.footerText}
+        onPress={() => Linking.openURL('https://your-resume-url.com')}
+        color="#0077b5">
+        View Online Resume
+      </Text>
     </>
   );
 }
@@ -82,4 +123,21 @@ const styles = StyleSheet.create({
   name: {
     color: 'gray',
   },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  footerIcon: {
+    paddingHorizontal: 10,
+  },
+  footerText: {backgroundColor: '#0077b5', textAlign: 'center'},
 });
