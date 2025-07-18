@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useRef} from 'react';
 import {
   View,
   TextInput,
@@ -17,6 +17,7 @@ export default function LoginScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const passwordRef = useRef();
 
   const validate = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -51,15 +52,23 @@ export default function LoginScreen({navigation}) {
         autoCapitalize="none"
         keyboardType="email-address"
         style={styles.input}
+        returnKeyType="next"
+        onSubmitEditing={() => passwordRef.current?.focus()}
       />
       <View style={styles.passwordContainer}>
         <TextInput
+          style={styles.passwordInput}
+          ref={passwordRef}
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!passwordVisible}
+          returnKeyType="done"
+          onSubmitEditing={handleLogin}
         />
-        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+        <TouchableOpacity
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          style={styles.containerIcon}>
           <View style={styles.container}>
             <Image
               source={
@@ -89,13 +98,20 @@ export default function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', padding: 20},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     marginBottom: 12,
     padding: 8,
     borderRadius: 4,
+  },
+  passwordInput: {
+    flexGrow: 1,
   },
   error: {color: 'red', marginBottom: 12},
   signup: {
@@ -113,8 +129,6 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
   },
   icon: {
     width: 15,

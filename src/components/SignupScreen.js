@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   TextInput,
@@ -17,6 +17,8 @@ export default function SignupScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const validateEmail = (mail) => {
     return /\S+@\S+\.\S+/.test(mail);
@@ -46,23 +48,34 @@ export default function SignupScreen({navigation}) {
         value={name}
         onChangeText={setName}
         style={styles.input}
+        returnKeyType="next"
+        onSubmitEditing={() => emailRef.current?.focus()}
       />
       <TextInput
+        ref={emailRef}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
         keyboardType="email-address"
         autoCapitalize="none"
+        returnKeyType="next"
+        onSubmitEditing={() => passwordRef.current?.focus()}
       />
       <View style={styles.passwordContainer}>
         <TextInput
+          style={styles.passwordInput}
+          ref={passwordRef}
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!passwordVisible}
+          returnKeyType="done"
+          onSubmitEditing={handleSignup}
         />
-        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+        <TouchableOpacity
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          style={styles.containerIcon}>
           <View style={styles.container}>
             <Image
               source={
@@ -103,8 +116,6 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
   },
   icon: {
     width: 15,
@@ -116,6 +127,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     padding: 8,
     borderRadius: 4,
+  },
+  passwordInput: {
+    flexGrow: 1,
   },
   error: {color: 'red', marginBottom: 12},
   signup: {

@@ -28,9 +28,9 @@ export function AuthProvider({children}) {
 
   const signup = async (name, username, password) => {
     const userObj = {name: name, email: username, password: password};
-    setUser(userObj);
+    await pushNewItem(userObj);
     await AsyncStorage.setItem('user', JSON.stringify(userObj));
-    pushNewItem(userObj);
+    setUser(userObj);
   };
 
   const pushNewItem = async (newItem) => {
