@@ -5,10 +5,10 @@ import {
   Button,
   Text,
   StyleSheet,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import {useAuth} from '../context/AuthContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function SignupScreen({navigation}) {
   const {signup} = useAuth();
@@ -62,14 +62,18 @@ export default function SignupScreen({navigation}) {
           onChangeText={setPassword}
           secureTextEntry={!passwordVisible}
         />
-        <TouchableOpacity
-          style={styles.eyeIcon}
-          onPress={() => setPasswordVisible(!passwordVisible)}>
-          <Icon
-            name={passwordVisible ? 'eye-off' : 'eye'}
-            size={24}
-            color="#888"
-          />
+        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+          <View style={styles.container}>
+            <Image
+              source={
+                passwordVisible
+                  ? require('../assets/icons/eye.png')
+                  : require('../assets/icons/eye-off.png')
+              }
+              style={styles.icon}
+              resizeMode="contain"
+            />
+          </View>
         </TouchableOpacity>
       </View>
       {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -97,9 +101,14 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     justifyContent: 'space-between',
   },
-  eyeIcon: {
-    marginLeft: -32,
-    padding: 8,
+  containerIcon: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  icon: {
+    width: 15,
+    height: 15,
   },
   input: {
     borderWidth: 1,

@@ -1,5 +1,14 @@
 import React, {useState, useContext} from 'react';
-import {View, TextInput, Button, Text, StyleSheet, Alert} from 'react-native';
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 
 export default function LoginScreen({navigation}) {
@@ -7,6 +16,7 @@ export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const validate = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,13 +52,27 @@ export default function LoginScreen({navigation}) {
         keyboardType="email-address"
         style={styles.input}
       />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!passwordVisible}
+        />
+        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+          <View style={styles.container}>
+            <Image
+              source={
+                passwordVisible
+                  ? require('../assets/icons/eye.png')
+                  : require('../assets/icons/eye-off.png')
+              }
+              style={styles.icon}
+              resizeMode="contain"
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
       {error || authError ? (
         <Text style={styles.error}>{error || authError}</Text>
       ) : null}
@@ -76,5 +100,24 @@ const styles = StyleSheet.create({
   error: {color: 'red', marginBottom: 12},
   signup: {
     paddingTop: 10,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    marginBottom: 12,
+    paddingRight: 8,
+    justifyContent: 'space-between',
+  },
+  containerIcon: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  icon: {
+    width: 15,
+    height: 15,
   },
 });
