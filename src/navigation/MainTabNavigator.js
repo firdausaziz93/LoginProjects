@@ -3,9 +3,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import {Image} from 'react-native';
 import SettingsScreen from '../screens/SettingsScreen';
+import DashboardScreen from '../screens/DashboardScreen';
 
 const ICONS = {
   Home: require('../assets/icons/home.png'),
+  Dashboard: require('../assets/icons/dashboard.png'),
   Settings: require('../assets/icons/setting.png'),
 };
 
@@ -24,6 +26,7 @@ const MainTabNavigator = () => (
       tabBarInactiveTintColor: 'gray',
     })}>
     <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Dashboard" component={DashboardScreen} />
     <Tab.Screen name="Settings" component={SettingsScreen} />
   </Tab.Navigator>
 );
