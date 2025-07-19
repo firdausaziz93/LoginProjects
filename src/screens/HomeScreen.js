@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   FlatList,
   Linking,
@@ -34,98 +33,77 @@ export default function HomeScreen({navigation}) {
 
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.title}>Welcome!</Text>
-        <Text style={styles.info}>Name: {user?.name || user}</Text>
-        <Text style={styles.info}>Email: {user?.email || user}</Text>
-        <Button
-          title="Logout"
-          onPress={() => {
-            logout();
-          }}
-        />
+      <View style={styles.profileCard}>
+        <Text style={styles.title}>👋 Welcome!</Text>
+        <Text style={styles.label}>
+          Name: <Text style={styles.value}>{user?.name}</Text>
+        </Text>
+        <Text style={styles.label}>
+          Email: <Text style={styles.value}>{user?.email}</Text>
+        </Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.listContainer}>
-        <Text style={styles.title}>List user</Text>
+        <Text style={styles.sectionTitle}>👥 User List</Text>
         <FlatList
           data={listUsers}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
-            <View style={styles.listItemContainer}>
-              <Text style={styles.email}>Email: {item.email}</Text>
-              <Text style={styles.name}>Name: {item.name}</Text>
+            <View style={styles.userCard}>
+              <Text style={styles.email}>📧 {item.email}</Text>
+              <Text style={styles.name}>👤 {item.name}</Text>
             </View>
           )}
         />
       </View>
+
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerIcon}
-          onPress={() =>
-            Linking.openURL(
-              'https://www.linkedin.com/in/muhammad-firdaus-65bb48212',
-            )
-          }>
-          <Image
-            source={require('../assets/icons/linkedin.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.footerIcon}
-          onPress={() =>
-            Linking.openURL('https://firdausaziz93.github.io/React-Deploy')
-          }>
-          <Image
-            source={require('../assets/icons/resume.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL(
+                'https://www.linkedin.com/in/muhammad-firdaus-65bb48212',
+              )
+            }>
+            <Image
+              source={require('../assets/icons/linkedin.png')}
+              style={styles.logo}
+            />
+            <Text style={styles.iconLabel}>LinkedIn</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL('https://firdausaziz93.github.io/React-Deploy')
+            }>
+            <Image
+              source={require('../assets/icons/resume.png')}
+              style={styles.logo}
+            />
+            <Text style={styles.iconLabel}>Resume</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <Text
-        style={styles.footerText}
-        onPress={() => Linking.openURL('https://your-resume-url.com')}
-        color="#0077b5">
-        View Online Resume
-      </Text>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
   title: {fontSize: 24, marginBottom: 24},
-  info: {fontSize: 18, marginBottom: 12},
-
   listContainer: {
     flex: 1,
     padding: 16,
     alignItems: 'center',
-  },
-  listItemContainer: {
-    padding: 12,
-    backgroundColor: '#eee',
-    borderRadius: 10,
-    marginBottom: 10,
-    width: 300,
   },
   email: {
     fontWeight: 'bold',
   },
   name: {
     color: 'gray',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
   },
   logo: {
     width: 40,
@@ -136,8 +114,49 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
   },
-  footerIcon: {
-    paddingHorizontal: 10,
+  profileCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    margin: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: {width: 0, height: 2},
+    alignItems: 'center',
   },
-  footerText: {backgroundColor: '#0077b5', textAlign: 'center'},
+  logoutButton: {
+    backgroundColor: '#0077b5',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  logoutText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  userCard: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 10,
+    width: '100%',
+  },
+  iconContainer: {
+    alignItems: 'center',
+    padding: 10,
+  },
+  iconLabel: {
+    marginTop: 4,
+    fontSize: 12,
+    color: '#444',
+  },
 });

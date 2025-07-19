@@ -3,8 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '../components/LoginScreen';
 import SignupScreen from '../components/SignupScreen';
-import HomeScreen from '../screens/HomeScreen';
 import {useAuth} from '../context/AuthContext';
+import MainTabNavigator from './MainTabNavigator';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,11 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Main"
+            component={MainTabNavigator}
+            options={{headerShown: false}}
+          />
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
