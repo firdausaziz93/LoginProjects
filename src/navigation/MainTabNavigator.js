@@ -7,7 +7,7 @@ import DashboardScreen from '../screens/DashboardScreen';
 
 const ICONS = {
   Home: require('../assets/icons/home.png'),
-  Dashboard: require('../assets/icons/dashboard.png'),
+  News: require('../assets/icons/news.png'),
   Settings: require('../assets/icons/setting.png'),
 };
 
@@ -26,7 +26,7 @@ const MainTabNavigator = () => (
       tabBarInactiveTintColor: 'gray',
     })}>
     <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Dashboard" component={DashboardScreen} />
+    <Tab.Screen name="News" component={DashboardScreen} />
     <Tab.Screen name="Settings" component={SettingsScreen} />
   </Tab.Navigator>
 );
